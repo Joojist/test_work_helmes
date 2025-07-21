@@ -17,7 +17,7 @@ A simple Spring Boot web application that lets users register their name and sel
 * Session timeout set to 15 minutes
 * User-friendly feedback messages on save and delete
 * Simple UI built with Thymeleaf templates
-* Uses Spring Data JPA with an embedded database (e.g., H2 or SQLite)
+* Uses Spring Data JPA with an embedded database (PostgreSQL)
 
 ---
 
@@ -30,6 +30,12 @@ A simple Spring Boot web application that lets users register their name and sel
 * Validation API (Jakarta Validation)
 * Embedded database (H2 by default)
 * Gradle build system
+
+---
+
+### Why These Technologies?
+
+I chose Spring Boot, Thymeleaf, and Spring Data JPA because they offer a great balance of simplicity and scalability. These technologies are straightforward for small projects but powerful and robust enough to handle much larger applications as they grow. Additionally, I’m most familiar with these tools, which allows me to create clean, maintainable, and efficient code. Using technologies I know well helps ensure quality work and faster development.
 
 ---
 
@@ -46,7 +52,7 @@ A simple Spring Boot web application that lets users register their name and sel
 1. Clone this repository:
 
    ```
-   git clone https://github.com/yourusername/your-repo-name.git
+   git clone https://github.com/Joojist/test_work_helmes
    cd your-repo-name
    ```
 
