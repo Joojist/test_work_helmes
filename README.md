@@ -44,7 +44,7 @@ I chose Spring Boot, Thymeleaf, and Spring Data JPA because they offer a great b
 ### Prerequisites
 
 * JDK 17 or higher installed
-* Maven or Gradle installed
+* Gradle installed
 * IDE like IntelliJ IDEA, VSCode, or Eclipse (optional)
 
 ### Running the Project
