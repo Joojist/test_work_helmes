@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 40px auto;
+            max-width: 600px;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h2, h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            border: 1.5px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0,123,255,0.5);
+        }
+
+        input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.2);
+            vertical-align: middle;
+        }
+
+        input[type="submit"], button.delete-btn {
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            user-select: none;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            font-size: 1.1em;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-btn {
+            background-color: #d9534f;
+            color: white;
+            font-size: 1.2em;
+            padding: 12px 30px;
+            border: none;
+            cursor: pointer;
+            margin-top: 30px;
+            border-radius: 5px;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .delete-btn:hover {
+            background-color: #c9302c;
+        }
+
+        /* error message */
+        p[th\\:if] {
+            margin-top: -5px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+
+        /* success and error boxes */
+        div[th\\:if] p {
+                         padding: 10px 15px;
+                         border-radius: 4px;
+                         font-weight: 600;
+                         max-width: 400px;
+                     }
+
+        div[th\\:if="${param.success}"] p {
+                                            background-color: #d4edda;
+                                            color: #155724;
+                                            border: 1px solid #c3e6cb;
+                                        }
+
+        div[th\\:if="${param.deleted}"] p {
+                                            background-color: #f8d7da;
+                                            color: #721c24;
+                                            border: 1px solid #f5c6cb;
+                                        }
+
+        /* sectors list */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            max-width: 400px;
+        }
+
+        ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 400px;
+        }
+
+        ul li span {
+            flex-grow: 1;
+        }
+
+        ul li form {
+            margin: 0;
+        }
+
+        ul li input[type="submit"] {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 12px;
+            font-size: 0.9em;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        ul li input[type="submit"]:hover {
+            background-color: #b02a37;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Please enter your name and pick the sectors you are currently involved in</h2>
+
+<form th:action="@{/save}" th:object="${user}" method="post">
+
+    <!-- name field -->
+    <label>Name:</label><br />
+    <input type="text" th:field="*{name}" /><br />
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></p><br />
+
+    <!-- sectors -->
+    <label>Sectors:</label><br />
+    <select multiple size="10" th:field="*{selectedSectorIds}">
+        <option th:each="sector : ${sectors}"
+                th:value="${sector.id}"
+                th:text="${'&#160;&#160;&#160;&#160;'.repeat(sector.level) + sector.name}">
+        </option>
+    </select>
+    <p th:if="${#fields.hasErrors('selectedSectorIds')}" th:errors="*{selectedSectorIds}" style="color: red;"></p><br /><br />
+    <h3>To add multiple sectors hold Ctrl (or Cmd on Mac) and click each sector you want to select.</h3>
+
+    <!-- terms -->
+    <label>
+        <input type="checkbox" th:field="*{agreeToTerms}" /> Agree to terms
+    </label>
+    <p th:if="${#fields.hasErrors('agreeToTerms')}" th:errors="*{agreeToTerms}" style="color: red;"></p>
+
+    <input type="submit" value="Save" />
+</form>
+
+<!-- success and deleted Messages -->
+<div th:if="${param.success}">
+    <p style="color: green;">✅ Your data has been saved.</p>
+</div>
+
+<div th:if="${param.deleted}">
+    <p style="color: red;">🗑️ Your data has been deleted.</p>
+</div>
+
+<!-- Sectors -->
+<h3>Your Selected Sectors:</h3>
+<ul>
+    <li th:each="sector : ${selectedSectors}">
+        <span th:text="${sector.name}"></span>
+        <form th:action="@{/remove-sector}" method="post" style="display:inline;">
+            <input type="hidden" name="sectorId" th:value="${sector.id}" />
+            <input type="submit" value="Remove" />
+        </form>
+    </li>
+</ul>
+
+<!-- delete user -->
+<form th:action="@{/delete-user}" method="post" th:if="${session.userId != null}">
+    <button type="submit" class="delete-btn">Delete My Data</button>
+</form>
+
+</body>
+</html>
