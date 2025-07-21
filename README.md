@@ -56,13 +56,7 @@ I chose Spring Boot, Thymeleaf, and Spring Data JPA because they offer a great b
    cd your-repo-name
    ```
 
-2. Build and run with Maven:
-
-   ```
-   ./mvnw spring-boot:run
-   ```
-
-   Or with Gradle:
+2. Build and run with Gradle:
 
    ```
    ./gradlew bootRun
