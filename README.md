@@ -24,7 +24,7 @@ A simple Spring Boot web application that lets users register their name and sel
 ## Technologies
 
 * Java 17+
-* Spring Boot 3.x
+* Spring Boot 3.5.3
 * Spring Data JPA
 * Thymeleaf templating engine
 * Validation API (Jakarta Validation)
