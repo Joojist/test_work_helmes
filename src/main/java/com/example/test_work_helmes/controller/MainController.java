@@ -84,7 +84,7 @@ public class MainController {
     // remove
     @PostMapping("/remove-sector")
     public String removeSector(@RequestParam Long sectorId, HttpSession session) {
-        System.out.println("🔧 Called removeSector with sectorId = " + sectorId);
+        System.out.println("Called removeSector with sectorId = " + sectorId);
 
         Long userId = (Long) session.getAttribute("userId");
         if (userId != null) {
