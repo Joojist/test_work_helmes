@@ -1,4 +1,4 @@
-package com.example.test_work_helmes.dto;
+package com.example.test_work_helmes.entity;
 
 import java.util.ArrayList;
 import java.util.List;

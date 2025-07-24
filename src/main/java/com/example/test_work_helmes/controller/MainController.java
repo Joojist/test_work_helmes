@@ -1,6 +1,6 @@
 package com.example.test_work_helmes.controller;
 
-import com.example.test_work_helmes.dto.UserForm;
+import com.example.test_work_helmes.entity.UserForm;
 import com.example.test_work_helmes.entity.Sector;
 import com.example.test_work_helmes.entity.User;
 import com.example.test_work_helmes.service.UserService;
