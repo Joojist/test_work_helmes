@@ -112,7 +112,6 @@ I chose Spring Boot, Thymeleaf, and Spring Data JPA because they offer a great b
 ## To Do / Improvements
 
 * Add user authentication
-* Unit and integration testing
 
 ---
 
